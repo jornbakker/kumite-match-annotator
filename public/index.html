@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kumite Annotation Tool</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Kumite Annotation Tool</h1>
+
+      <section class="panel" id="authPanel">
+        <h2>Annotator Entry</h2>
+        <div class="form-row">
+          <label for="annotatorName">Annotator Name</label>
+          <input id="annotatorName" type="text" placeholder="Enter your name" />
+          <button id="registerAnnotatorBtn">Register</button>
+          <button id="loginAnnotatorBtn">Login</button>
+        </div>
+        <p id="annotatorStatus">Not logged in.</p>
+      </section>
+
+      <div id="appContent" class="hidden">
+      <section class="panel" id="workflowPanel">
+        <h2>Player and Match Selection</h2>
+
+        <div class="form-row">
+          <label for="playerSelect">Select Player</label>
+          <select id="playerSelect"></select>
+          <button id="selectPlayerBtn">Select Player</button>
+          <button id="deletePlayerBtn">Delete Selected Player</button>
+          <button id="viewPlayerOverviewBtn">Player Overview</button>
+          <button id="viewAllPlayersOverviewBtn">All Players Overview</button>
+        </div>
+
+        <div class="form-row">
+          <label for="playerName">Create Player</label>
+          <input id="playerName" type="text" placeholder="Enter player name" />
+          <button id="createPlayerBtn">Create and Select</button>
+        </div>
+
+        <p id="selectedPlayerStatus">No player selected.</p>
+
+        <div id="matchStep" class="hidden">
+          <div class="form-row">
+            <button id="createNewMatchBtn">Create New Match</button>
+          </div>
+
+          <h3>Existing Matches</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Match</th>
+                <th>Opponent</th>
+                <th>Location</th>
+                <th>Totals</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="savedMatchesBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel hidden" id="overviewContent">
+        <h2 id="overviewTitle">Player Overview</h2>
+        <p id="overviewSummary">Select a player to view overview.</p>
+
+        <h3>Match Results</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Match</th>
+              <th>Opponent</th>
+              <th>Result</th>
+              <th>Points</th>
+            </tr>
+          </thead>
+          <tbody id="overviewMatchesBody"></tbody>
+        </table>
+
+        <h3>Technique Statistics</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Technique</th>
+              <th>Attempts</th>
+              <th>Scored</th>
+              <th>Scored %</th>
+              <th>Points</th>
+            </tr>
+          </thead>
+          <tbody id="techniqueStatsBody"></tbody>
+        </table>
+
+        <h3>Points Scored Against Player</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Technique</th>
+              <th>Times Conceded</th>
+              <th>Conceded %</th>
+            </tr>
+          </thead>
+          <tbody id="pointsAgainstStatsBody"></tbody>
+        </table>
+
+        <div class="form-row" style="margin-top: 12px;">
+          <button id="backToSelectionBtn">Back to Selection</button>
+        </div>
+      </section>
+
+      <section class="panel hidden" id="allPlayersOverviewContent">
+        <h2>All Players Overview</h2>
+        <p id="allPlayersOverviewSummary">Wins, losses, draws and score percentages per technique.</p>
+
+        <table>
+          <thead>
+            <tr id="allPlayersOverviewHead"></tr>
+          </thead>
+          <tbody id="allPlayersOverviewBody"></tbody>
+        </table>
+
+        <div class="form-row" style="margin-top: 12px;">
+          <button id="backToSelectionFromAllPlayersBtn">Back to Selection</button>
+        </div>
+      </section>
+
+      <div id="workspaceContent" class="hidden">
+      <section class="panel">
+        <h2>1) Match Setup</h2>
+        <div class="form-row">
+          <label for="videoSourceType">Video Source</label>
+          <select id="videoSourceType">
+            <option value="youtube">YouTube</option>
+            <option value="mp4">MP4 upload</option>
+          </select>
+        </div>
+
+        <div class="form-row" id="youtubeUrlRow">
+          <label for="youtubeUrl">YouTube URL</label>
+          <input id="youtubeUrl" type="url" placeholder="https://www.youtube.com/watch?v=..." />
+        </div>
+
+        <div class="form-row hidden" id="mp4FileRow">
+          <label for="mp4File">MP4 File</label>
+          <input id="mp4File" type="file" accept="video/mp4" />
+        </div>
+
+        <div class="form-row">
+          <button id="loadVideoBtn">Load Video</button>
+        </div>
+
+        <div class="form-row">
+          <label for="matchName">Match Name</label>
+          <input id="matchName" type="text" placeholder="Example: Finals Bout 3" />
+        </div>
+
+        <div class="form-row">
+          <label for="matchLocation">Location</label>
+          <input id="matchLocation" type="text" placeholder="Example: Rotterdam" />
+        </div>
+
+        <div class="form-row">
+          <label for="matchDate">Match Date</label>
+          <input id="matchDate" type="date" />
+        </div>
+
+        <div class="form-row">
+          <label for="opponentName">Opponent Name</label>
+          <input id="opponentName" type="text" placeholder="Enter opponent name" />
+        </div>
+
+        <div class="form-row">
+          <label for="selectedPlayerSide">Selected Player Side</label>
+          <select id="selectedPlayerSide">
+            <option value="ao">Selected player is Ao</option>
+            <option value="aka">Selected player is Aka</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="aoPlayerName">Ao Player Name</label>
+          <input id="aoPlayerName" type="text" placeholder="Enter Ao player name" />
+        </div>
+
+        <div class="form-row">
+          <label for="akaPlayerName">Aka Player Name</label>
+          <input id="akaPlayerName" type="text" placeholder="Enter Aka player name" />
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>2) Video</h2>
+        <div id="player" class="video"></div>
+        <video id="localVideo" class="video hidden" controls playsinline></video>
+        <p id="videoStatus">No video loaded.</p>
+      </section>
+
+      <section class="panel">
+        <h2>Match Timeline</h2>
+        <p id="timelineInfo">No events yet.</p>
+        <div id="timelineTrack" class="timeline-track"></div>
+      </section>
+
+      <section class="panel">
+        <h2>3) Add Event</h2>
+        <div class="annotation-panes">
+          <div class="annotation-pane pane-ao" id="aoPane">
+            <h3>Ao Annotation</h3>
+
+            <div class="form-row">
+              <label for="eventTypeAo">Event Type</label>
+              <select id="eventTypeAo">
+                <option value="score">Score</option>
+                <option value="warning">Warning</option>
+                <option value="technique">Technique (no score)</option>
+              </select>
+            </div>
+
+            <div class="form-row" id="scoreTypeRowAo">
+              <label for="scoreTypeAo">Score Type</label>
+              <select id="scoreTypeAo">
+                <option value="Yuko">Yuko</option>
+                <option value="Wasari">Wasari</option>
+                <option value="Ippon">Ippon</option>
+              </select>
+            </div>
+
+            <div class="form-row" id="techniqueRowAo">
+              <label for="techniqueAo">Technique</label>
+              <select id="techniqueAo">
+                <option value="Kizami tsuki">Kizami tsuki</option>
+                <option value="Gyaku tsuki">Gyaku tsuki</option>
+                <option value="Yoko geri">Yoko geri</option>
+                <option value="Mawashi geri">Mawashi geri</option>
+                <option value="Ura mawashi geri">Ura mawashi geri</option>
+                <option value="Ashi barai">Ashi barai</option>
+              </select>
+            </div>
+
+            <div class="form-row checkbox-row">
+              <label>
+                <input type="checkbox" id="defendedByDefenderAo" />
+                Defended by defending player
+              </label>
+            </div>
+
+            <div class="form-row">
+              <label for="noteAo">Note (optional)</label>
+              <input id="noteAo" type="text" placeholder="Optional short note" />
+            </div>
+
+            <div class="form-row">
+              <button id="addAnnotationBtnAo">Add Ao Event at Current Timestamp</button>
+            </div>
+          </div>
+
+          <div class="annotation-pane pane-aka" id="akaPane">
+            <h3>Aka Annotation</h3>
+
+            <div class="form-row">
+              <label for="eventTypeAka">Event Type</label>
+              <select id="eventTypeAka">
+                <option value="score">Score</option>
+                <option value="warning">Warning</option>
+                <option value="technique">Technique (no score)</option>
+              </select>
+            </div>
+
+            <div class="form-row" id="scoreTypeRowAka">
+              <label for="scoreTypeAka">Score Type</label>
+              <select id="scoreTypeAka">
+                <option value="Yuko">Yuko</option>
+                <option value="Wasari">Wasari</option>
+                <option value="Ippon">Ippon</option>
+              </select>
+            </div>
+
+            <div class="form-row" id="techniqueRowAka">
+              <label for="techniqueAka">Technique</label>
+              <select id="techniqueAka">
+                <option value="Kizami tsuki">Kizami tsuki</option>
+                <option value="Gyaku tsuki">Gyaku tsuki</option>
+                <option value="Yoko geri">Yoko geri</option>
+                <option value="Mawashi geri">Mawashi geri</option>
+                <option value="Ura mawashi geri">Ura mawashi geri</option>
+                <option value="Ashi barai">Ashi barai</option>
+              </select>
+            </div>
+
+            <div class="form-row checkbox-row">
+              <label>
+                <input type="checkbox" id="defendedByDefenderAka" />
+                Defended by defending player
+              </label>
+            </div>
+
+            <div class="form-row">
+              <label for="noteAka">Note (optional)</label>
+              <input id="noteAka" type="text" placeholder="Optional short note" />
+            </div>
+
+            <div class="form-row">
+              <button id="addAnnotationBtnAka">Add Aka Event at Current Timestamp</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <button id="saveMatchBtn">Save Match Results to Database</button>
+          <span id="currentTimestamp">Timestamp: --</span>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Current Match Events</h2>
+        <p id="totalsSummary">Scores in favor: 0 | Scores against: 0 | Warnings: 0 | Points in favor: 0 | Points against: 0</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Event</th>
+              <th>Technique</th>
+              <th>Side</th>
+              <th>Defended</th>
+              <th>Points</th>
+              <th>Note</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="annotationsBody"></tbody>
+        </table>
+      </section>
+
+      </div>
+      </div>
+    </main>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

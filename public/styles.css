@@ -1,0 +1,165 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f4f4;
+  color: #222;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+h3 {
+  margin-top: 14px;
+}
+
+.panel {
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+label {
+  min-width: 130px;
+  font-weight: 600;
+}
+
+input,
+select,
+button {
+  padding: 8px;
+  font-size: 14px;
+}
+
+button {
+  cursor: pointer;
+}
+
+.video {
+  width: 100%;
+  max-width: 720px;
+  aspect-ratio: 16 / 9;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background: #f2f2f2;
+}
+
+.checkbox-row label {
+  min-width: 0;
+  font-weight: 500;
+}
+
+.hidden {
+  display: none;
+}
+
+.timeline-track {
+  position: relative;
+  width: 100%;
+  height: 54px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+.timeline-track::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  background: #ccc;
+  transform: translateY(-50%);
+}
+
+.timeline-marker {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid #333;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 1;
+}
+
+.timeline-marker-score-for {
+  background: #2e7d32;
+}
+
+.timeline-marker-score-against {
+  background: #c62828;
+}
+
+.timeline-marker-warning {
+  background: #f9a825;
+}
+
+.timeline-marker-technique {
+  background: #1565c0;
+}
+
+.annotation-panes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.annotation-pane {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfbfb;
+}
+
+.annotation-pane h3 {
+  margin-top: 0;
+}
+
+.pane-ao {
+  border-color: #90caf9;
+}
+
+.pane-aka {
+  border-color: #ef9a9a;
+}
+
+@media (max-width: 900px) {
+  .annotation-panes {
+    grid-template-columns: 1fr;
+  }
+}
